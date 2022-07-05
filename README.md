@@ -84,13 +84,13 @@ res.writeHead() তার ভিতরে কোড এবং কন্টেন
 ## Understanding http client
 Explore: যাহা সার্ভারে HTTP Request পাঠায় এবং Response Receive করে,  তাকেই Http client বলে।
 - Example Of HTtp Client
-Axios
-Fetch
-Jquery ajax
-cURL (php)
-Volly (java)
-Retrofit (cShark)
-RestSharp
+Axios ,
+Fetch, 
+Jquery ajax ,
+cURL (php) ,
+Volly (java) ,
+Retrofit (cShark) ,
+RestSharp ,
 
 - HTTP client for Testing
 PostMan, Fiddler
@@ -141,6 +141,31 @@ fs module oparetion দুইভাবে হয়ে থাকে।
 #fs Asynchronous operation মাল্টিটাক্স করতে পারবে।
 
 ### Fs module operation চালাতে synchronous and asynchronous কিছু মেথড রয়েছে।
+
+
+## Synchronous, Asynchronous
+
+### When Synchronous Suitable: সিনকুনাস যেহেতু কাজ সম্পূর্ণ না হলে অন্য কোনো একশন সার্ভারে পাঠাতে পারবো না, সেই কারন ক্লাইন্ট সাইট থেকে সার্ভার সেইডে এমন রিকুয়েষ্ট পাঠাতে হবে যেটা পসেস হতে সার্ভারে কম সময় লাগে। তখন সিনকুনাস ব্যবহার করব।
+
+### When Asynchronous suitable:  যখন সার্ভারে রিকুয়েষ্ট করলে পসেস হতে অনেক সময় লাগে তখন এসিনকুনাস ব্যবহার করা হয়।
+যেমনঃ youtube vedio uploding
+
+## Fs module method
+### Fs module essential operation Asynchronous method:
+- fs.readFile(ফাইল রিড)
+- fs.writeFile(ফাইল নিয়ে আসা)
+- fs.rename()
+- fs.exists()
+- fs.unlink(ডিলেট করার জন্য)
+- fs.appendFile(ফাইল এর ভিতর নতুন কিছু এড করতে)
+- fs.open()
+- fs.mkdir()
+- fs.rmdir(এক্সজিস কোনো ফাইল কে রিনেম করতে চাইলে)
+- fs.readding(ফাইল এর ভিতর যা আছে সব রিড করতে চাইলে)
+
+### Fs module essential operation synchronous method:
+- প্রতিটি মেথড এর শেষে Sync শব্ধটি আছে
+- Example: fs.readFileSync()
 
 
 
