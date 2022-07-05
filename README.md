@@ -235,3 +235,131 @@ fs থেকে writefile মেথড নেব। তার ভিতরে �
 error হলে error দেখাবো। এরর না হলে else এর ভিতর ডাটা দেখাব।
 
 
+## fs file write Synchronous
+```javascript
+const fileWriteSyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            const error = fs.writeFileSync('text.txt' , "hello , Im Sync Write file now")
+            if(error){
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                  res.write('File Write Fail')
+                  res.end()
+            }
+            else{
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                  res.write('File Write Success')
+                  res.end()
+            }
+      }
+})
+fileWriteSyn.listen(5004)
+```
+## Code Explore:
+সরাসরি error মধ্যে দিয়ে দেবে। কোনো কলব্যাগ ফাংশন নেই। error হলে কন্ডিশন দিয়ে
+দেখাবো।
+
+## fs file rename Asynchronous
+```javascript
+const reNameFile = http.createServer((req , res)=>{
+      if(req.url == '/'){
+            fs.rename('text.txt' , 'demo.txt' , (error) =>{
+                  if(error){
+                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                        res.write('File rename Fail')
+                        res.end()
+                  }
+                  else{
+                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                        res.write('File rename Success')
+                        res.end()
+
+                  }
+            })
+      }
+})
+
+reNameFile.listen(5005)
+```
+## Explore: 
+প্রথমে rename মেথড টা নিতে হবে। তার ভিতরে ৩টা পেরামিটার যাবে। ১ম পেরামিটার ফাইলের পার্থ নেম। এটাকে রিনেম করার জন্য নতুন পার্থ নেম সেগেন্ড পেরামিটার হিসাবে যাবে। ৩য় পেরামিটার কলব্যাক ফাংশন।
+
+
+## fs file rename Synchronous
+```javascript
+const renameFileSyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            const error = fs.renameSync('demo.txt' , "newDemo.txt")
+            if(error){
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                        res.write('File rename Fail')
+                        res.end()
+
+            }
+            else{
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                  res.write('File rename Success')
+                  res.end()
+            }
+      }
+})
+
+renameFileSyn.listen(5006)
+```
+## Code Explore:
+সরাসরি error মধ্যে দিয়ে দেবে। কোনো কলব্যাগ ফাংশন নেই। error হলে কন্ডিশন দিয়ে
+দেখাবো।
+
+
+## fs file delete Asynchronous
+```javascript
+
+const fileDelete = http.createServer((req , res)=>{
+      if(req.url == '/'){
+            fs.unlink('newDemo.txt' ,(error)=>{
+                  if(error){
+                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                              res.write('File delete Fail')
+                              res.end()
+      
+                  }
+                  else{
+                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                        res.write('File delete Success')
+                        res.end()
+                  }
+
+            })
+      }
+})
+
+fileDelete.listen(5007)
+```
+## Code Explore:
+fs module প্রথমে unlink মেথড টা নিতে হবে। তার ভিতরে ৩টা পেরামিটার যাবে। ১ম পেরামিটার ফাইলের পার্থ নেম যেটিকে ডিলেট করব। ৩য় পেরামিটার কলব্যাক ফাংশন।
+
+
+## fs file rename Synchronous
+```javascript
+const renameFileSyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            const error = fs.unlinkSync('mamun.txt')
+            if(error){
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                        res.write('File Delete Fail')
+                        res.end()
+
+            }
+            else{
+                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
+                  res.write('File Delete Success')
+                  res.end()
+            }
+      }
+})
+
+renameFileSyn.listen(5008)
+```
+## Code Explore:
+সরাসরি error মধ্যে দিয়ে দেবে। কোনো কলব্যাগ ফাংশন নেই। error হলে কন্ডিশন দিয়ে
+দেখাবো।
+
