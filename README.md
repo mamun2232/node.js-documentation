@@ -185,7 +185,8 @@ const fileReadAsyn = http.createServer((req , res) =>{
 })
 fileReadAsyn.listen(5001)
 ```
-Code explore: First Create html file...
+## Code explore: 
+First Create html file...
 এখানে প্রথম fs module টা node  থেকে নেওয়া হইছে। http দিয়ে সার্ভার তৈরি করা হয়েছে।
 fs.readfile এর ভিতর (৩টা ,optional shoho) দুইটা পেরামিটার যাবে। ফাইল নেইম। কলব্যাক ফাংশন। সেই কল ব্যাগ ফাংশনে দুইটা পেরামিটার যাবে। eroro হলে error হেন্ডেল করবে। data. মধ্যে ডাটা পেয়ে যাব।
 
@@ -207,5 +208,30 @@ fileReadSyn.listen(5002)
 যেহেতু synchronous অপারেশন চালালে সার্ভারে অন্য কোনো অপারেশন এক্সকিউট হবে না অন্য একশন চালানো যাবে না। তাই synchronous fs oparetion চালালে কোনো কল ব্যাক ফাংশন লাগবে না। সরাসরি ডাটা ভেরিবলে দিয়ে দেবে।
 
 
+
+## fs file write Asynchronous
+```javascript
+const fileWriteAsyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            fs.writeFile('text.txt' , "Hello , File write How are you?" ,(error , data) =>{
+                  if(error){
+                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
+                        res.write('File Write Fail')
+                        res.end()
+                  }
+                  else{
+                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
+                        res.write('File Write Success')
+                        res.end()
+
+                  }
+            })
+      }
+})
+fileWriteAsyn.listen(5003)
+```
+## Code Explore: 
+fs থেকে writefile মেথড নেব। তার ভিতরে ৩টা পেরামিটার যাবে। ফাইল নেম। যা পাটাবো সেই ডাটা। কলবেগ ফাংশন। কলব্যগ ফংশনে একটা পেরামিটার আসবে error। 
+error হলে error দেখাবো। এরর না হলে else এর ভিতর ডাটা দেখাব।
 
 

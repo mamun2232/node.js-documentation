@@ -37,3 +37,24 @@ const fileReadSyn = http.createServer((req , res)=>{
       }
 })
 fileReadSyn.listen(5002)
+
+
+// file write Asunchonus 
+const fileWriteAsyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            fs.writeFile('text.txt' , "Hello , File write How are you?" ,(error , data) =>{
+                  if(error){
+                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
+                        res.write('File Write Fail')
+                        res.end()
+                  }
+                  else{
+                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
+                        res.write('File Write Success')
+                        res.end()
+
+                  }
+            })
+      }
+})
+fileWriteAsyn.listen(5003)
