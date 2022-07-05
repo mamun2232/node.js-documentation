@@ -169,6 +169,42 @@ fs module oparetion দুইভাবে হয়ে থাকে।
 
 
 
+##  Create fs file read Asynchronous
+```javascript
+const http = require('http');
+const fs = require('fs');
+const fileReadAsyn = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            fs.readFile('home.html' ,(error , data) => {
+                  res.writeHead(200 , {'content-type': 'fileRead/html'})
+                  res.write(data)
+                  res.end()
+
+            })
+      }
+})
+fileReadAsyn.listen(5001)
+```
+Code explore: First Create html file...
+এখানে প্রথম fs module টা node  থেকে নেওয়া হইছে। http দিয়ে সার্ভার তৈরি করা হয়েছে।
+fs.readfile এর ভিতর (৩টা ,optional shoho) দুইটা পেরামিটার যাবে। ফাইল নেইম। কলব্যাক ফাংশন। সেই কল ব্যাগ ফাংশনে দুইটা পেরামিটার যাবে। eroro হলে error হেন্ডেল করবে। data. মধ্যে ডাটা পেয়ে যাব।
+
+##  Create fs file read Synchronous
+```javascript
+const http = require('http');
+const fs = require('fs');
+const fileReadSyn = http.createServer((req , res)=>{
+      if(req.url == '/'){
+            const myData = fs.readFileSync('home.html')
+            res.writeHead(200 , {'content-type': "readFile/html"})
+            res.write(myData)
+            res.end()
+      }
+})
+fileReadSyn.listen(5002)
+```
+## Code Explore:
+যেহেতু synchronous অপারেশন চালালে সার্ভারে অন্য কোনো অপারেশন এক্সকিউট হবে না অন্য একশন চালানো যাবে না। তাই synchronous fs oparetion চালালে কোনো কল ব্যাক ফাংশন লাগবে না। সরাসরি ডাটা ভেরিবলে দিয়ে দেবে।
 
 
 
