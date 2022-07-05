@@ -15,12 +15,12 @@ Explore:
 ## What is Module? 
 Explore:
 - মডিউল হচ্ছে অনেক গুলো কোডের সমষ্টি বা বান্ডিল।
-** node.js includes three types of module
+-- #node.js includes three types of module
 - Core modules , Local modules , Third party modules
 
-#Core module : nodejs এর নিজিস্ব মডিউল বা ফ্লাটফরম যেগুলো আছে সেগুলো হচ্ছে core modules.
-#নিজে থেকে তৈরি করলে local module.
-#থার্ড পার্টি ইউস করলে thrid party modules.
+Core module : nodejs এর নিজিস্ব মডিউল বা ফ্লাটফরম যেগুলো আছে সেগুলো হচ্ছে core modules.
+নিজে থেকে তৈরি করলে local module.
+থার্ড পার্টি ইউস করলে thrid party modules.
 
 
 ## Core modules এ যা যা আছেঃ
@@ -34,11 +34,19 @@ Explore:
 - Utilitis : এর বাহিরে যেগুলো রয়েছে…
 
 
+## Node module server create :
 ```javascript
-import Component from 'my-project'
+const httpServer = http.createServer((req , res) => {
+      res.end('hello World')
+})
 
-function App() {
-  return <Component />
+httpServer.listen(5000)
+console.log('server start');
 }
 ```
+Code Explore: প্রথমে মডিউল থেকে http method টা নেব। 
+সেই মডিল থেকে createServer নিয়ে এনোনিমাস ফাংশন ক্রেট করব।
+
+server টা রান করার জন্য ভেরিবলে রেখে listen দেব। তার ভিতরে path সেড করে দেব।
+
 
