@@ -1,165 +1,163 @@
 const http = require('http');
-const URL = require('url');
 const fs = require('fs');
+const URL = require('url');
 
-const server = http.createServer((req , res) =>{
-      const myUrl = 'https://web.programming-hero.com/web-5/video/web-5-80-10-starting-of-a-new-journey-with-special-message'
-      const objectUrl = URL.parse(myUrl , true)
-      const host = objectUrl.host
-      res.writeHead(200 , {'content-type': 'url/html'})
+const picPPerse = http.createServer((req , res) => {
+      const myPic = 'https://web.programming-hero.com/web-5/video/web-5-80-10-starting-of-a-new-journey-with-special-message'
+      const picObject = URL.parse(myPic , true)
+      const host = picObject.host
+      const path = picObject.path
+      res.writeHead(200 , {'content-type': "pic/html"})
       res.write(host)
       res.end()
-
-})
-server.listen(5000)
-console.log('surver Run');
-
-// file read by asyn -----------
-const fileReadAsyn = http.createServer((req , res) =>{
-      if(req.url == '/'){
-       fs.readFile('home.html' , (error , data) =>{
-            res.writeHead(200 , {'content-type': "readfile/html"})
-            res.write(data)
-            res.end()
-       })
-      }
 })
 
-fileReadAsyn.listen(5001)
+picPPerse.listen(5000)
+console.log('server open');
 
-// fileRead synchnas
-const fileReadSyn = http.createServer((req , res)=>{
+// fs oparetion 
+
+const fileRead = http.createServer((req , res) =>{
       if(req.url == '/'){
-            const myData = fs.readFileSync('home.html')
-            res.writeHead(200 , {'content-type': "readFile/html"})
-            res.write(myData)
-            res.end()
-      }
-})
-fileReadSyn.listen(5002)
-
-
-// file write Asunchonus 
-const fileWriteAsyn = http.createServer((req , res) =>{
-      if(req.url == '/'){
-            fs.writeFile('text.txt' , "Hello , File write How are you?" ,(error , data) =>{
-                  if(error){
-                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
-                        res.write('File Write Fail')
+            fs.readFile('home.html' , (erorr , data) =>{
+                  if (erorr) {
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file read fail')
                         res.end()
+                        
                   }
                   else{
-                        res.writeHead(200 , {"content-type": "fileWrite/asn"})
-                        res.write('File Write Success')
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file read Success')
                         res.end()
-
-                  }
-            })
-      }
-})
-fileWriteAsyn.listen(5003)
-
-// file write syn 
-
-const fileWriteSyn = http.createServer((req , res) =>{
-      if(req.url == '/'){
-            const error = fs.writeFileSync('text.txt' , "hello , Im Sync Write file now")
-            if(error){
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                  res.write('File Write Fail')
-                  res.end()
-            }
-            else{
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                  res.write('File Write Success')
-                  res.end()
-            }
-      }
-})
-fileWriteSyn.listen(5004)
-
-// fs rename file asyn 
-
-const reNameFile = http.createServer((req , res)=>{
-      if(req.url == '/'){
-            fs.rename('text.txt' , 'demo.txt' , (error) =>{
-                  if(error){
-                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                        res.write('File Write Fail')
-                        res.end()
-                  }
-                  else{
-                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                        res.write('File Write Success')
-                        res.end()
-
+                        
                   }
             })
       }
 })
 
-reNameFile.listen(5005)
+fileRead.listen(5001)
 
-// fs file rename syn 
-
-const renameFileSyn = http.createServer((req , res) =>{
+const fileRedSyn = http.createServer((req , res)=>{
       if(req.url == '/'){
-            const error = fs.renameSync('demo.txt' , "newDemo.txt")
-            if(error){
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                        res.write('File rename Fail')
-                        res.end()
-
-            }
-            else{
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                  res.write('File rename Success')
+            const myDAta = fs.readFileSync('home.html')
+            if (myDAta) {
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file read Success')
                   res.end()
+                  
             }
-      }
-})
-
-renameFileSyn.listen(5006)
-
-
-const fileDelete = http.createServer((req , res)=>{
-      if(req.url == '/'){
-            fs.unlink('newDemo.txt' ,(error)=>{
-                  if(error){
-                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                              res.write('File delete Fail')
-                              res.end()
       
+      }
+})
+fileRedSyn.listen(5002)
+
+
+const fileWrite = http.createServer((req , res)=>{
+      if(req.url == '/'){
+            fs.writeFile('text.html', 'Hey file how are you?' , (error)=>{
+                  if (error) {
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file write fail')
+                        res.end()
+                        
                   }
                   else{
-                        res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                        res.write('File delete Success')
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file write Success')
                         res.end()
+                        
+                  }
+            })
+      }
+})
+
+fileWrite.listen(5003)
+
+const writeFileSync = http.createServer((req , res)=>{
+      if(req.url == '/'){
+            const error = fs.writeFileSync('text.txt' , 'hey text iam syn')
+            if (error) {
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file write fail')
+                  res.end()
+                  
+            }
+            else{
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file write Success')
+                  res.end()
+                  
+            }
+      }
+})
+
+writeFileSync.listen(5004)
+
+
+const fileRename = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            fs.rename('text.txt' , 'mamun.txt' , (error) =>{
+                  if (error) {
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file rename fail')
+                        res.end()
+                        
+                  }
+                  else{
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file rename Success')
+                        res.end()
+                        
                   }
 
             })
       }
 })
 
-fileDelete.listen(5007)
+fileRename.listen(5005)
 
-// fs file asun 
-const deleteFileSyn = http.createServer((req , res) =>{
+const fileRenameSyn = http.createServer((req , res)=>{
       if(req.url == '/'){
-            const error = fs.unlinkSync('mamun.txt')
-            if(error){
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                        res.write('File Delete Fail')
-                        res.end()
-
+            const error = fs.renameSync('mamun.txt' , 'text.txt')
+            if (error) {
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file rename fail')
+                  res.end()
+                  
             }
             else{
-                  res.writeHead(200 , {"content-type": 'synWrite/syn'})
-                  res.write('File Delete Success')
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file rename Success')
                   res.end()
+                  
             }
+
       }
+
+})
+fileRenameSyn.listen(5006)
+
+const deleteFile = http.createServer((req , res) =>{
+      if(req.url == '/'){
+      fs.unlink('text.txt' , (error)=>{
+            if (error) {
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file deleete fail')
+                  res.end()
+                  
+            }
+            else{
+                  res.writeHead(200 , {'content-type': "pic/html"})
+                  res.write('file delete Success')
+                  res.end()
+                  
+            
+      }
+    
+
+      })}
 })
 
-deleteFileSyn.listen(5008)
+deleteFile.listen(5007)
 

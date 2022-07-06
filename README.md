@@ -107,21 +107,18 @@ host,path,query
 
 - একটা Url কে যেভাবে ছোট ছোট খন্ডে ভাগ করবঃ
 ```javascript
-const httpServer = http.createServer((req , res) => {
-      if(req.url == '/'){
-            res.writeHead(200 , {'content-type': 'text/html'})
-            res.write('this is home page')
-            res.end()
-      }
-      if(req.url == '/login'){
-            res.writeHead(200 ,{ 'content-type': 'text/html'})
-            res.write('this is login page')
-            res.end()
-      }
-})
+const server = http.createServer((req , res) =>{
+      const myUrl = 'https://web.programming-hero.com/web-5/video/web-5-80-10-starting-of-a-new-journey-with-special-message'
+      const objectUrl = URL.parse(myUrl , true)
+      const host = objectUrl.host
+      res.writeHead(200 , {'content-type': 'url/html'})
+      res.write(host)
+      res.end()
 
-httpServer.listen(5000)
-console.log('server start');
+})
+server.listen(5000)
+console.log('surver Run');
+
 ```
 Code Explore: প্রথমে url model রিকুয়ার করবো নোড থেকে।
 যে url কে ভাগ করবো সেই url কে ভেরিবলে রাখবো।
@@ -338,7 +335,7 @@ fileDelete.listen(5007)
 fs module প্রথমে unlink মেথড টা নিতে হবে। তার ভিতরে ৩টা পেরামিটার যাবে। ১ম পেরামিটার ফাইলের পার্থ নেম যেটিকে ডিলেট করব। ৩য় পেরামিটার কলব্যাক ফাংশন।
 
 
-## fs file rename Synchronous
+## fs file delete Synchronous
 ```javascript
 const renameFileSyn = http.createServer((req , res) =>{
       if(req.url == '/'){
@@ -362,4 +359,58 @@ renameFileSyn.listen(5008)
 ## Code Explore:
 সরাসরি error মধ্যে দিয়ে দেবে। কোনো কলব্যাগ ফাংশন নেই। error হলে কন্ডিশন দিয়ে
 দেখাবো।
+
+
+
+## fs file Exists Asynchronous
+```javascript
+
+const existsFiles = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            fs.exists('text.txt' , (result)=>{
+                  if(result){
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file exist success')
+                        res.end()
+                  }
+                  else{
+                        res.writeHead(200 , {'content-type': "pic/html"})
+                        res.write('file exist fail')
+                        res.end()
+                  }
+            })
+      }
+})
+
+existsFiles.listen(5009)
+          
+```
+## Code Explore:
+ প্রথমে exists  মেথড টা নিতে হবে। তার ভিতরে ৩টা পেরামিটার যাবে। ১ম পেরামিটার ফাইলের পার্থ নেম দেব যেটিকে চ্যাক করব ফাইল আছে কিনা। ৩য় পেরামিটার কলব্যাক ফাংশন।
+
+
+## fs file Exists Synchronous
+```javascript
+     const existsFile = http.createServer((req , res) =>{
+      if(req.url == '/'){
+          const result =  fs.exists('text.txt')
+          if(result){
+            res.writeHead(200 , {'content-type': "pic/html"})
+            res.write('file exists success')
+            res.end()
+
+          }
+          else{
+            res.writeHead(200 , {'content-type': "pic/html"})
+            res.write('file exists fail')
+            res.end()
+          }
+      }
+})
+existsFile.listen(5009)
+
+existsFiles.listen(5009)
+          
+```
+
 
