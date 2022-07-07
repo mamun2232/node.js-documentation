@@ -412,5 +412,92 @@ existsFile.listen(5009)
 existsFiles.listen(5009)
           
 ```
+## Stream & buffers
+
+Stream Explore:
+যে ডাটা একসাথে না এসে একটু একটু করে আসে সেটিকে স্ট্রিম বলে। অর্থাৎ পার্টে পার্টে সার্ভার থেকে ডাটা পাঠানো।
+যেম্নঃ ইউটিউবে বিডিও দেখা।
+
+buffers Explore:
+buffers হচ্চে যেটা আগে থেকে এসে যায় এবং সেটিকে স্টিম করে দেখায়। অর্থাৎ সার্ভার থেকে পার্টে পার্টে যে ডাটা আসে সেটিকে একটা প্যাকেট এর মত করে ফেলা।
+
+## Note:
+খন্ড খন্ড যে ডাটা আসবে সেটিকে নিয়ে কাজ করতে পারবো না। কিন্তু খন্ড খন্ড মিলে যে প্যাক্ট এর ব্যপার তৈরি হই সেটিকে নিয়ে কাজ করা যায়।
+
+stream দুই ভাবে হয়ে থাকে
+- Write strime 
+- Read strime
 
 
+## Read strime file read
+
+```javascript
+ const fs = require('fs');
+
+const OurReadStream = fs.createReadStream(`${__dirname}/read.txt` , 'utf8')
+
+OurReadStream.on('data' , (data) =>{
+      console.log(data);
+})
+          
+```
+
+More Example: 
+```javascript
+const fs = require('fs');
+const http = require('http');
+
+const OurReadStream = fs.createReadStream(`${__dirname}/read.txt` , 'utf8')
+
+const server = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            res.write('<html><head><title>From</title></head></html>')
+            res.write('<body><form method="post" action="/process"><input name="massage" type="text"></form></body>')
+            res.end()
+      }
+      else if(req.url == '/process'){
+            req.on('data' , (data )=>{
+                  console.log(data.toString());
+
+            })
+            res.write('Thank You Submitting')
+            res.end()
+      }
+})
+
+server.listen(5000)       
+```
+Code Explore: 
+এখানে res.on এর মাধ্যমে একটু একটু করে ডাটা এসেছে।
+যদি পুরাটা আসার পর রেস্পন্স করি তাহলে even এর ভিতর data পরিবর্তে end দিতে হবে।
+
+## Example :
+```javascript
+const fs = require('fs');
+const http = require('http');
+
+const OurReadStream = fs.createReadStream(`${__dirname}/read.txt` , 'utf8')
+
+const server = http.createServer((req , res) =>{
+      if(req.url == '/'){
+            res.write('<html><head><title>From</title></head></html>')
+            res.write('<body><form method="post" action="/process"><input name="massage" type="text"></form></body>')
+            res.end()
+      }
+      else if(req.url == '/process'){
+            const reciveBody = []
+            req.on('data' , (data )=>{
+                  reciveBody.push(data)
+                  console.log(data.toString());
+
+            })
+            req.on('end' , (data )=>{
+                  console.log('Stream Fnish');
+                  const parseBody = Buffer.concat(reciveBody).toString()
+                  console.log(parseBody);
+            })
+      }
+})
+
+server.listen(5000)       
+```
